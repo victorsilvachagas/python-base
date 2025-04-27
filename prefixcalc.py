@@ -45,30 +45,33 @@ def calc(op, a, b):
     else:
         return "Operação inválida, burro!"
 
+while True:
+    def main():
+        if len(sys.argv) == 4:
+            op = sys.argv[1]
+            a = float(sys.argv[2])
+            b = float(sys.argv[3])
+        else:
+            op = input("Operação: ")
+            a = float(input("n1: "))
+            b = float(input("n2: "))
 
-def main():
-    if len(sys.argv) == 4:
-        op = sys.argv[1]
-        a = float(sys.argv[2])
-        b = float(sys.argv[3])
-    else:
-        op = input("Operação: ")
-        a = float(input("n1: "))
-        b = float(input("n2: "))
+        result = calc(op, a, b)
+        print(result)
 
-    result = calc(op, a, b)
-    print(result)
+        path = os.curdir
+        filepath = os.path.join(path, "prefixcalc.log")
+        timestamp = datetime.now().isoformat()
+        user = os.getenv('User', 'anonymous')
+        try:
+            with open(filepath, "a") as file_:
+                file_.write(f"{timestamp} - {user} - {op},{a},{b} = {result}\n")
+        except PermissionError as e:
+            print(str(e))
+            sys.exit(1)
 
-    path = os.curdir
-    filepath = os.path.join(path, "prefixcalc.log")
-    timestamp = datetime.now().isoformat()
-    user = os.getenv('User', 'anonymous')
-    try:
-        with open(filepath, "a") as file_:
-            file_.write(f"{timestamp} - {user} - {op},{a},{b} = {result}\n")
-    except PermissionError as e:
-        print(str(e))
-        sys.exit(1)
+    if __name__ == "__main__":
+        main()
 
-if __name__ == "__main__":
-    main()
+    if input("Pressione enter para continuar ou qualquer tecla para sair: "):
+        break

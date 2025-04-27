@@ -1,0 +1,5 @@
+teste:teste
+python:treino
+jose:joao
+---
+algoritmo:repete
